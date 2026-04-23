@@ -1,0 +1,47 @@
+name: Feature Request
+description: 提出新的仓库能力、工作流或项目改进建议
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 功能描述
+      description: 简要描述你想增加的内容
+      placeholder: 例如：补充一个 PR 检查工作流
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: 目标范围
+      options:
+        - label: 仓库工作流 / Git 规范
+        - label: 技能资产（`.agents/skills/`）
+        - label: `site/`
+        - label: `media-platform/`
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 动机
+      description: 为什么需要这个功能？它解决什么问题？
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 实现建议
+      description: 如果你已有方向或思路，可以写在这里
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收标准
+      description: 用简短条目描述完成后的判断标准
+      placeholder: |
+        - [ ] 标准 1
+        - [ ] 标准 2

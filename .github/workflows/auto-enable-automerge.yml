@@ -1,0 +1,63 @@
+name: Auto Enable Auto-Merge
+
+on:
+  pull_request:
+    types:
+      - ready_for_review
+      - reopened
+      - synchronize
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  enable-auto-merge:
+    if: github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable auto-merge for ready PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+
+            if (pr.draft) {
+              core.info('Pull request is still draft. Skip enabling auto-merge.');
+              return;
+            }
+
+            if (pr.state !== 'open') {
+              core.info(`Pull request state is ${pr.state}. Skip enabling auto-merge.`);
+              return;
+            }
+
+            if (pr.head.repo.full_name !== pr.base.repo.full_name) {
+              core.info('Pull request head is from a different repository. Skip enabling auto-merge.');
+              return;
+            }
+
+            try {
+              await github.graphql(
+                `
+                  mutation EnableAutoMerge($pullRequestId: ID!) {
+                    enablePullRequestAutoMerge(
+                      input: {
+                        pullRequestId: $pullRequestId
+                        mergeMethod: SQUASH
+                      }
+                    ) {
+                      clientMutationId
+                    }
+                  }
+                `,
+                {
+                  pullRequestId: pr.node_id
+                }
+              );
+
+              core.info(`Auto-merge enabled for PR #${pr.number}.`);
+            } catch (error) {
+              core.warning(`Failed to enable auto-merge for PR #${pr.number}: ${error.message}`);
+              core.warning('Make sure the repository has Allow auto-merge enabled and branch protection is configured for main.');
+            }

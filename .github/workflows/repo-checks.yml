@@ -1,0 +1,113 @@
+name: Repository Checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches-ignore: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  branch-name:
+    name: Validate Branch Name
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch naming convention
+        shell: bash
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            BRANCH="${{ github.head_ref }}"
+          else
+            BRANCH="${GITHUB_REF_NAME}"
+          fi
+
+          PATTERN='^(feature|fix|docs|chore)\/[a-z0-9]+(-[a-z0-9]+)*$'
+
+          if [[ ! "$BRANCH" =~ $PATTERN ]]; then
+            echo "Invalid branch name: $BRANCH"
+            echo "Expected format: feature/<name>, fix/<name>, docs/<name>, chore/<name>"
+            exit 1
+          fi
+
+  commit-messages:
+    name: Validate Commit Messages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Conventional Commit messages
+        shell: bash
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE_SHA="${{ github.event.before }}"
+            HEAD_SHA="${{ github.sha }}"
+          fi
+
+          if [[ "$BASE_SHA" == "0000000000000000000000000000000000000000" ]]; then
+            COMMITS=$(git log --format=%s -n 20 "$HEAD_SHA")
+          else
+            COMMITS=$(git log --format=%s "$BASE_SHA..$HEAD_SHA")
+          fi
+
+          if [[ -z "$COMMITS" ]]; then
+            echo "No commit messages found to validate."
+            exit 0
+          fi
+
+          PATTERN='^(feat|fix|docs|chore|refactor|perf|style)(\([a-z0-9._/-]+\))?: .+'
+
+          while IFS= read -r subject; do
+            [[ -z "$subject" ]] && continue
+            if [[ ! "$subject" =~ $PATTERN ]]; then
+              echo "Invalid commit message: $subject"
+              echo "Expected Conventional Commits format, e.g. docs(readme): update project overview"
+              exit 1
+            fi
+          done <<< "$COMMITS"
+
+  required-files:
+    name: Check Required Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify key repository files exist
+        shell: bash
+        run: |
+          for path in AGENTS.md MEMORY.md memory/tasks.md CONTRIBUTING.md README.md; do
+            if [[ ! -f "$path" ]]; then
+              echo "Missing required file: $path"
+              exit 1
+            fi
+          done
+
+  python-syntax:
+    name: Python Syntax Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile backend Python files
+        shell: bash
+        run: |
+          python -m py_compile media-platform/backend/app.py media-platform/backend/db.py media-platform/backend/processors.py
+
+  actionlint:
+    name: Workflow Static Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run actionlint
+        uses: rhysd/actionlint@v1

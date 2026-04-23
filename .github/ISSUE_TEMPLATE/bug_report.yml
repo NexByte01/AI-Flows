@@ -1,0 +1,68 @@
+name: Bug Report
+description: 报告仓库工作流、站点或子项目中的问题
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 问题描述
+      description: 简要描述你遇到的问题
+      placeholder: 例如：Pages 部署后占位页链接失效
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: 影响范围
+      options:
+        - label: 仓库工作流 / Git 规范
+        - label: 技能资产（`.agents/skills/`）
+        - label: `site/`
+        - label: `media-platform/`
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 尽量提供稳定复现的方法
+      placeholder: |
+        1. 打开 ...
+        2. 执行 ...
+        3. 出现 ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+      placeholder: 例如：页面应正常展示并跳转到主站
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为
+      placeholder: 例如：页面空白 / 工作流失败 / 链接 404
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志或截图
+      description: 如有终端输出、错误日志或截图，请粘贴在这里
+
+  - type: textarea
+    id: env
+    attributes:
+      label: 环境信息
+      description: 可填写浏览器、操作系统、Python 版本等
+      placeholder: |
+        - OS:
+        - Browser:
+        - Python:
