@@ -13,14 +13,17 @@ jobs:
   branch-name:
     name: Validate Branch Name
     runs-on: ubuntu-latest
+    env:
+      PR_HEAD_REF: ${{ github.head_ref }}
+      PUSH_REF_NAME: ${{ github.ref_name }}
     steps:
       - name: Check branch naming convention
         shell: bash
         run: |
           if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
-            BRANCH="${{ github.head_ref }}"
+            BRANCH="$PR_HEAD_REF"
           else
-            BRANCH="${GITHUB_REF_NAME}"
+            BRANCH="$PUSH_REF_NAME"
           fi
 
           PATTERN='^(feature|fix|docs|chore)\/[a-z0-9]+(-[a-z0-9]+)*$'
