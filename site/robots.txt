@@ -1,0 +1,27 @@
+# robots.txt for NexByte AI Flows
+
+User-agent: *
+Allow: /
+
+Sitemap: https://nexbyte.com.cn/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Perplexity
+Allow: /

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexByte AI Flows | AI 工作空间占位页</title>
+  <meta name="description" content="NexByte AI Flows 是一个长期演化的 AI 工作空间，承载记忆、技能、自动化流程和实验项目。当前页面为通往 nexbyte.com.cn 与 GitHub 仓库的临时入口。">
+  <meta name="keywords" content="NexByte,AI Flows,AI工作空间,GitHub,自动化,技能库,长期记忆">
+  <meta name="author" content="NexByte">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://nexbyte.com.cn/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NexByte AI Flows | AI 工作空间占位页">
+  <meta property="og:description" content="一个承载长期记忆、技能资产、自动化流程与实验项目的 AI 工作空间。">
+  <meta property="og:url" content="https://nexbyte.com.cn/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NexByte AI Flows | AI 工作空间占位页">
+  <meta name="twitter:description" content="访问主站 nexbyte.com.cn，或查看 GitHub 仓库中的工作流、技能和实验项目。">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "NexByte AI Flows",
+    "url": "https://nexbyte.com.cn/",
+    "description": "NexByte 的 AI 工作空间，占位页指向主站与 GitHub 仓库。",
+    "publisher": {
+      "@type": "Organization",
+      "name": "NexByte"
+    },
+    "sameAs": [
+      "https://github.com/NexByte01/AI-Flows"
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #08111f;
+      --bg-soft: rgba(255, 255, 255, 0.05);
+      --card: rgba(255, 255, 255, 0.06);
+      --border: rgba(148, 163, 184, 0.18);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #22c55e;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.14), transparent 28%),
+        linear-gradient(180deg, #08111f 0%, #0f172a 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .brand {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a,
+    .cta {
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      border-radius: 999px;
+      padding: 10px 16px;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .cta:hover {
+      transform: translateY(-1px);
+      border-color: rgba(56, 189, 248, 0.45);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .hero {
+      padding: 56px 0 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.08);
+      color: #bae6fd;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .cta.primary {
+      background: linear-gradient(135deg, var(--primary), #2563eb);
+      border-color: transparent;
+      color: #f8fafc;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .stat,
+    .card {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-size: 1.9rem;
+      font-weight: 800;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 840px) {
+      .stats,
+      .grid { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="nav">
+      <div class="brand">NexByte AI Flows</div>
+      <div class="nav-links">
+        <a href="https://nexbyte.com.cn" target="_blank" rel="noopener">主站</a>
+        <a href="https://github.com/NexByte01/AI-Flows" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">临时占位页 · GitHub Pages</div>
+      <h1>为长期协作而建的 AI 工作空间。</h1>
+      <p class="lead">
+        NexByte AI Flows 用一个仓库承载长期记忆、技能资产、自动化流程和实验项目。
+        当前页面是通往主站 <strong>nexbyte.com.cn</strong> 与 GitHub 主仓的公开入口，
+        后续会继续演进为更完整的项目导航与说明页。
+      </p>
+      <div class="actions">
+        <a class="cta primary" href="https://nexbyte.com.cn" target="_blank" rel="noopener">访问主站</a>
+        <a class="cta" href="https://github.com/NexByte01/AI-Flows" target="_blank" rel="noopener">查看仓库</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">当前主仓</div>
+          <div class="stat-value">AI Flows</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">GitHub Stars</div>
+          <div class="stat-value" id="repo-stars">--</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">当前状态</div>
+          <div class="stat-value">占位页</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>仓库里有什么</h2>
+        <ul>
+          <li>通过 `AGENTS.md`、`MEMORY.md` 和 `memory/` 持续保留上下文</li>
+          <li>通过 `.agents/skills/` 与 `.agents/workflows/` 沉淀能力和流程</li>
+          <li>通过 GitHub Actions 运行日报、Issue 处理和 Pages 部署</li>
+          <li>通过 `media-platform/` 等目录持续孵化实验项目</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>当前阶段</h2>
+        <p>
+          这个站点当前先承担“品牌切换”和“仓库入口”职责，不追求完整官网形态。
+          下一阶段会根据主站结构和内容规划，决定是继续作为镜像说明页，还是升级为更完整的导航站。
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>为什么这样做</h2>
+        <p>
+          AI 工具真正有价值的部分，不只是生成内容，而是能否积累记忆、沉淀流程、复用技能，并持续参与项目建设。
+          NexByte AI Flows 就是围绕这件事设计的。
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>后续入口</h2>
+        <p>
+          如果你是第一次访问，优先查看主站和 GitHub 仓库；如果你是协作者，直接从仓库里的 `AGENTS.md` 与 `MEMORY.md` 开始。
+        </p>
+      </article>
+    </section>
+
+    <div class="footer">
+      NexByte AI Flows · Main site <a href="https://nexbyte.com.cn" target="_blank" rel="noopener">nexbyte.com.cn</a> ·
+      Repo <a href="https://github.com/NexByte01/AI-Flows" target="_blank" rel="noopener">NexByte01/AI-Flows</a>
+    </div>
+  </div>
+
+  <script>
+    (async () => {
+      const el = document.getElementById('repo-stars');
+      try {
+        const res = await fetch('https://api.github.com/repos/NexByte01/AI-Flows');
+        if (!res.ok) throw new Error('request failed');
+        const data = await res.json();
+        el.textContent = (data.stargazers_count ?? 0).toLocaleString();
+      } catch {
+        el.textContent = 'N/A';
+      }
+    })();
+  </script>
+</body>
+</html>
