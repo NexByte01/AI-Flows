@@ -1,0 +1,63 @@
+# 操作系统和编辑器产生的本地杂项文件
+# 这类文件依赖具体机器环境，不应进入版本库
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Claude 本地桥接配置
+# 实际可复用技能保存在 .agents/ 中，这里的本地映射不需要提交
+.claude/
+
+# 本地环境变量和敏感配置
+# 示例文件需要保留，真实本地配置不提交
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Python 缓存、测试产物和虚拟环境
+# 这些都属于可本地重建内容，不属于源码
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.venv/
+venv/
+
+# 前端依赖目录和构建产物
+# 依赖和打包结果应由本地或 CI 重新生成
+node_modules/
+.next/
+dist/
+build/
+.turbo/
+.cache/
+.vercel/
+
+# 本地日志文件
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 本地数据库和运行时持久化文件
+# 除非明确作为种子数据管理，否则不应提交
+*.db
+*.sqlite
+*.sqlite3
+
+# 媒体平台运行时生成的文件
+# 通过 .gitkeep 保留目录结构，但忽略上传内容和处理输出
+media-platform/backend/uploads/*
+media-platform/backend/outputs/*
+!media-platform/backend/uploads/.gitkeep
+!media-platform/backend/outputs/.gitkeep
