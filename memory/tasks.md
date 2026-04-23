@@ -14,7 +14,6 @@
 
 ## 待办
 
-- [ ] 补齐 PR 模板、Issue 模板和仓库级协作规范
 - [ ] 评估 `site/` 从临时占位页升级为正式站点的结构方案
 - [ ] 检查 `media-platform/` 的运行链路与后续迭代方向
 
@@ -22,6 +21,7 @@
 
 ## 已完成（近期）
 
+- [x] **2026-04-23** 将 `repo-checks.yml` 调整为单一汇总检查 `Repository Checks`
 - [x] **2026-04-23** 新增自动 Draft PR 与 auto-merge 工作流
 - [x] **2026-04-23** 新增 `repo-checks.yml`，建立轻量 PR / 提交校验工作流
 - [x] **2026-04-23** 补齐 `CONTRIBUTING.md`、PR 模板与 Issue 模板

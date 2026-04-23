@@ -114,3 +114,47 @@ jobs:
 
       - name: Run actionlint
         uses: devops-actions/actionlint@v0.1.10
+
+  repository-checks:
+    name: Repository Checks
+    runs-on: ubuntu-latest
+    needs:
+      - branch-name
+      - commit-messages
+      - required-files
+      - python-syntax
+      - actionlint
+    if: ${{ always() }}
+    steps:
+      - name: Verify upstream checks passed
+        shell: bash
+        env:
+          BRANCH_NAME_RESULT: ${{ needs.branch-name.result }}
+          COMMIT_MESSAGES_RESULT: ${{ needs.commit-messages.result }}
+          REQUIRED_FILES_RESULT: ${{ needs.required-files.result }}
+          PYTHON_SYNTAX_RESULT: ${{ needs.python-syntax.result }}
+          ACTIONLINT_RESULT: ${{ needs.actionlint.result }}
+        run: |
+          FAILED=0
+
+          for item in \
+            "Validate Branch Name:$BRANCH_NAME_RESULT" \
+            "Validate Commit Messages:$COMMIT_MESSAGES_RESULT" \
+            "Check Required Files:$REQUIRED_FILES_RESULT" \
+            "Python Syntax Check:$PYTHON_SYNTAX_RESULT" \
+            "Workflow Static Check:$ACTIONLINT_RESULT"
+          do
+            NAME="${item%%:*}"
+            RESULT="${item#*:}"
+
+            if [[ "$RESULT" != "success" ]]; then
+              echo "$NAME did not succeed: $RESULT"
+              FAILED=1
+            fi
+          done
+
+          if [[ "$FAILED" -ne 0 ]]; then
+            exit 1
+          fi
+
+          echo "All repository checks passed."

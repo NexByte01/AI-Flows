@@ -91,6 +91,7 @@ PR 描述至少应覆盖：
    - Require a pull request before merging
    - Require status checks to pass before merging
    - 将 `Repository Checks` 设为 required check
+   - 如果列表刷新较慢，等待最新工作流完成后重新编辑该规则
 
 3. `Settings > Pull Requests`
    建议保留 `Allow squash merge`
