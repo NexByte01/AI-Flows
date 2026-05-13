@@ -15,6 +15,22 @@
 
 </div>
 
+<div align="center">
+<br />
+
+你和 AI 聊了 1000 轮对话。换了个工具，上下文全丢了。
+
+项目做到一半，昨天的决策今天已经想不起来。
+
+但有没有想过——**丢掉的不是对话，是你的思考、决策和记忆？**
+
+毕竟你才是那个每天和 AI 协作最多的人。
+
+**与其丢失记忆，不如让每一次对话都有迹可循。**
+
+<br />
+</div>
+
 ---
 
 ## ⚡ 30 秒启动
@@ -226,6 +242,16 @@ AI-Flows/
 ## 🤝 参与贡献
 
 参阅 [CONTRIBUTING.md](CONTRIBUTING.md) 了解分支策略（`main + develop + feature/*`）、提交规范和协作约定。
+
+---
+
+## ⭐ Star History
+
+<div align="center">
+
+[![Star History Chart](https://api.star-history.com/svg?repos=NexByte01/AI-Flows&type=Date)](https://star-history.com/#NexByte01/AI-Flows&Date)
+
+</div>
 
 ---
 
