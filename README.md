@@ -33,22 +33,6 @@
 
 ---
 
-## ⚡ 30 秒启动
-
-```bash
-# 1. Fork 本仓库
-# 2. 克隆到本地
-git clone https://github.com/<your-username>/AI-Flows.git
-cd AI-Flows
-
-# 3. 运行初始化向导
-node scripts/init.mjs
-
-# 4. 开始与 AI agent 对话，孵化你的第一个项目
-```
-
----
-
 ## 🤔 这是什么？
 
 > **AI Flows 不是一个普通的代码仓库。**
@@ -84,6 +68,59 @@ node scripts/init.mjs
 </td>
 </tr>
 </table>
+
+---
+
+## ⚡ 30 秒启动
+
+```bash
+# 1. Fork 本仓库
+# 2. 克隆到本地
+git clone https://github.com/<your-username>/AI-Flows.git
+cd AI-Flows
+
+# 3. 运行初始化向导
+node scripts/init.mjs
+
+# 4. 开始与 AI agent 对话，孵化你的第一个项目
+```
+
+---
+
+## 🎯 快速上手
+
+设置完成后，打开你常用的 AI 编程工具（Claude Code、Codex、Cursor……），开始对话：
+
+**▸ 恢复工作状态**
+
+新开一次对话时，告诉 AI 助手：
+
+```
+请读取 AGENTS.md 和 MEMORY.md，恢复你的身份和工作状态，然后继续我们的工作。
+```
+
+> AI 会自动读取规则和记忆文件，从上次中断的地方继续——无需重复解释项目背景。
+
+**▸ 孵化第一个项目**
+
+```
+/incubate-project
+```
+
+> AI 会引导你输入项目名、选择模板，自动创建完整的项目结构。
+
+**▸ 常用指令速查**
+
+| 你想做什么 | 告诉 AI |
+|:---|:---|
+| 提交代码 | `/commit` |
+| 创建工作分支 | `/feature-branch` |
+| 拆解一个需求 | `/task-breakdown` |
+| 做代码审查 | `/review` |
+| 检查仓库健康 | `/doctor` |
+| 发布新版本 | `/release` |
+
+> 💡 所有命令都不需要记住——直接用自然语言描述你要做的事，AI 也能理解。
 
 ---
 
