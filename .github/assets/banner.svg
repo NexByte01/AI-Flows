@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300">
+  <defs>
+    <!-- 渐变背景 -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="50%" style="stop-color:#0f0f1a"/>
+      <stop offset="100%" style="stop-color:#0a0a0f"/>
+    </linearGradient>
+    
+    <!-- 紫色光晕 -->
+    <radialGradient id="glow1" cx="30%" cy="50%" r="35%">
+      <stop offset="0%" style="stop-color:#6c2bd9;stop-opacity:0.3">
+        <animate attributeName="stop-opacity" values="0.15;0.35;0.15" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#6c2bd9;stop-opacity:0"/>
+    </radialGradient>
+    
+    <!-- 蓝色光晕 -->
+    <radialGradient id="glow2" cx="70%" cy="50%" r="35%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:0.25">
+        <animate attributeName="stop-opacity" values="0.1;0.3;0.1" dur="5s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- 流动光线渐变 -->
+    <linearGradient id="line1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6c2bd9;stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:#6c2bd9;stop-opacity:0.6">
+        <animate attributeName="stop-opacity" values="0.3;0.7;0.3" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#6c2bd9;stop-opacity:0"/>
+    </linearGradient>
+    
+    <linearGradient id="line2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:#2563eb;stop-opacity:0.5">
+        <animate attributeName="stop-opacity" values="0.2;0.6;0.2" dur="4s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 深色背景 -->
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  
+  <!-- 光晕层 -->
+  <rect width="1200" height="300" fill="url(#glow1)"/>
+  <rect width="1200" height="300" fill="url(#glow2)"/>
+  
+  <!-- 网格线 -->
+  <g opacity="0.06">
+    <line x1="0" y1="75" x2="1200" y2="75" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="150" x2="1200" y2="150" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="225" x2="1200" y2="225" stroke="#fff" stroke-width="0.5"/>
+    <line x1="300" y1="0" x2="300" y2="300" stroke="#fff" stroke-width="0.5"/>
+    <line x1="600" y1="0" x2="600" y2="300" stroke="#fff" stroke-width="0.5"/>
+    <line x1="900" y1="0" x2="900" y2="300" stroke="#fff" stroke-width="0.5"/>
+  </g>
+  
+  <!-- 流动线条 -->
+  <line x1="50" y1="90" x2="450" y2="90" stroke="url(#line1)" stroke-width="1.5" opacity="0.8">
+    <animate attributeName="x1" values="0;100;0" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="400;550;400" dur="6s" repeatCount="indefinite"/>
+  </line>
+  <line x1="750" y1="210" x2="1150" y2="210" stroke="url(#line2)" stroke-width="1.5" opacity="0.7">
+    <animate attributeName="x1" values="700;800;700" dur="7s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="1100;1200;1100" dur="7s" repeatCount="indefinite"/>
+  </line>
+  <line x1="200" y1="230" x2="500" y2="230" stroke="url(#line1)" stroke-width="1" opacity="0.4">
+    <animate attributeName="x1" values="150;280;150" dur="8s" repeatCount="indefinite"/>
+  </line>
+  <line x1="800" y1="70" x2="1050" y2="70" stroke="url(#line2)" stroke-width="1" opacity="0.4">
+    <animate attributeName="x2" values="1000;1100;1000" dur="5s" repeatCount="indefinite"/>
+  </line>
+
+  <!-- 浮动节点 -->
+  <g>
+    <circle cx="150" cy="90" r="2.5" fill="#6c2bd9" opacity="0.7">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="2;3;2" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="380" cy="90" r="2" fill="#6c2bd9" opacity="0.5">
+      <animate attributeName="opacity" values="0.2;0.6;0.2" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="850" cy="210" r="2.5" fill="#2563eb" opacity="0.6">
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.5s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="2;3.5;2" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1050" cy="210" r="2" fill="#2563eb" opacity="0.5">
+      <animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="150" r="1.5" fill="#8b5cf6" opacity="0.4">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="900" cy="150" r="1.5" fill="#3b82f6" opacity="0.4">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4.5s" repeatCount="indefinite"/>
+    </circle>
+    <!-- 额外装饰节点 -->
+    <circle cx="500" cy="60" r="1.5" fill="#6c2bd9" opacity="0.3">
+      <animate attributeName="opacity" values="0.15;0.45;0.15" dur="5.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="700" cy="240" r="1.5" fill="#2563eb" opacity="0.3">
+      <animate attributeName="opacity" values="0.15;0.4;0.15" dur="4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- 主标题 -->
+  <text x="600" y="130" text-anchor="middle" font-family="'SF Pro Display','Inter','Segoe UI',system-ui,-apple-system,sans-serif" font-size="72" font-weight="700" fill="white" letter-spacing="-2">
+    AI Flows
+  </text>
+  
+  <!-- 副标题 -->
+  <text x="600" y="175" text-anchor="middle" font-family="'SF Pro Display','Inter','Segoe UI',system-ui,-apple-system,sans-serif" font-size="20" font-weight="400" fill="#94a3b8" letter-spacing="4">
+    AI PROJECT OPERATING SYSTEM
+  </text>
+
+  <!-- 底部装饰线 -->
+  <rect x="520" y="200" width="160" height="1.5" rx="1" fill="url(#line1)" opacity="0.6">
+    <animate attributeName="width" values="140;180;140" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="x" values="530;510;530" dur="4s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- 顶部边框发光 -->
+  <rect x="0" y="0" width="1200" height="1" fill="#6c2bd9" opacity="0.4">
+    <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  <!-- 底部边框发光 -->
+  <rect x="0" y="299" width="1200" height="1" fill="#2563eb" opacity="0.3">
+    <animate attributeName="opacity" values="0.15;0.4;0.15" dur="4s" repeatCount="indefinite"/>
+  </rect>
+</svg>

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src=".github/assets/banner.png" alt="AI Flows Banner" width="100%" />
+<img src=".github/assets/banner.svg" alt="AI Flows — AI Project Operating System" width="100%" />
 
 <br />
 
