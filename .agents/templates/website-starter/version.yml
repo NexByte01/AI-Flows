@@ -1,0 +1,5 @@
+version: "1.0.0"
+type: website
+description: "Website template for landing pages, documentation sites, and company sites"
+updated: "2026-05-13"
+min_ai_flows_version: "2.0.0"

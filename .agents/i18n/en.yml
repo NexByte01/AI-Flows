@@ -1,0 +1,103 @@
+# AI Flows — English Language Pack
+# Used by templates, workflows, and the init script
+
+meta:
+  language: English
+  code: en
+  version: 1.0.0
+
+# ─── Common Labels ─────────────────────────────────────────────────────────────
+
+labels:
+  todo: "todo"
+  in_progress: "in progress"
+  completed: "completed"
+  none: "(none)"
+  not_set: "(not set)"
+
+# ─── Daily Log Template ───────────────────────────────────────────────────────
+
+daily_log:
+  title: "{{DATE}} Work Log"
+  sections:
+    completed: "Completed Today"
+    decisions: "Key Decisions"
+    next_steps: "Next Steps"
+    notes: "Notes"
+
+# ─── Task Tracking ────────────────────────────────────────────────────────────
+
+task_tracking:
+  title: "Task Tracking"
+  description: "This file tracks task status across conversations."
+  status_guide: "Status markers: `[ ]` todo | `[~]` in progress | `[x]` completed"
+  sections:
+    in_progress: "In Progress"
+    todo: "Todo"
+    recently_completed: "Recently Completed"
+  footer: "Last updated: {{DATE}}"
+
+# ─── Project Incubation ──────────────────────────────────────────────────────
+
+incubation:
+  prompts:
+    project_goal: "Project goal"
+    target_users: "Target users"
+    first_version_scope: "First version scope"
+    project_type: "Project type (app / api / website / agent)"
+  messages:
+    skeleton_created: "Project skeleton created at projects/{{SLUG}}/"
+    registry_updated: "Project registry updated"
+    ready: "Ready to start implementation"
+
+# ─── Project Lifecycle ────────────────────────────────────────────────────────
+
+lifecycle:
+  statuses:
+    building: "Actively under development"
+    paused: "Temporarily paused, context preserved"
+    archived: "No longer active, kept for reference"
+    migrated: "Moved to a standalone repository"
+
+# ─── Commit Messages ─────────────────────────────────────────────────────────
+
+commit:
+  types:
+    feat: "Feature development"
+    fix: "Bug fix"
+    docs: "Documentation update"
+    chore: "Repository maintenance"
+    refactor: "Code restructuring without behavior change"
+    perf: "Performance improvement"
+    style: "Code style change"
+
+# ─── PR Template ──────────────────────────────────────────────────────────────
+
+pull_request:
+  sections:
+    changes: "Changes"
+    affected_areas: "Affected Areas"
+    testing: "Testing"
+    memory_docs: "Memory & Documentation"
+    notes: "Additional Notes"
+  checklist:
+    static_review: "Static files reviewed manually"
+    code_check: "Code changes verified via syntax/type check"
+    workflow_check: "Workflow changes validated via static review"
+    no_test_needed: "No additional testing needed (explain why)"
+    memory_updated: "Updated memory/YYYY-MM-DD.md"
+    registry_updated: "Updated projects/registry.yml (if project status changed)"
+    no_memory_update: "No memory update needed (explain why)"
+
+# ─── Health Check ─────────────────────────────────────────────────────────────
+
+doctor:
+  title: "Health Check"
+  checks:
+    agents_exists: "AGENTS.md exists and is valid"
+    memory_exists: "MEMORY.md exists and contains required fields"
+    tasks_exists: "memory/tasks.md exists"
+    registry_consistent: "projects/registry.yml matches actual directories"
+    projects_have_memory: "All building projects have standard memory files"
+    templates_intact: "Template directory structure is intact"
+    no_orphan_projects: "No orphaned projects (directory exists but not in registry)"

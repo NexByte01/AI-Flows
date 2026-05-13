@@ -1,0 +1,21 @@
+# Registry Schema Version: 2
+#
+# 生命周期状态: building | paused | archived | migrated
+#
+# 项目条目格式:
+#   - slug: my-app
+#     name: 我的应用
+#     type: app                           # app | api | website | agent
+#     status: building                    # building | paused | archived | migrated
+#     template: app-starter               # 使用的模板
+#     template_version: "1.0.0"           # 创建时的模板版本
+#     created: 2026-01-01
+#     updated: 2026-01-01
+#     description: "一句话描述"
+#     external: false                     # true 表示跨仓库引用
+#     repository: ""                      # 外部仓库地址（owner/repo），external 为 true 时填写
+#     migrated_to: ""                     # 迁移目标仓库，status 为 migrated 时填写
+
+schema_version: 2
+current_project: null
+projects: []
