@@ -77,16 +77,65 @@ git log $(git describe --tags --abbrev=0 2>/dev/null || echo HEAD~10)..develop -
 CI 通过后：
 
 1. 合并 PR
-2. 本地打 tag 并推送：
+2. 本地同步 main：
+
+// turbo
+```
+git checkout main
+git pull origin main
+```
+
+3. 创建带注释的标签（annotated tag）。标签消息格式：
+
+```
+release: <一句话总结> v<VERSION>
+
+- <变更要点 1>
+- <变更要点 2>
+- <变更要点 3>
+```
+
+推荐使用文件方式创建（避免 PowerShell 多行转义问题）：
 
 ```bash
-git checkout main && git pull origin main
-git tag -a <VERSION> -m "<一句话总结>"
-git push origin <VERSION>
+# 将上方模板写入临时文件
+echo "release: <一句话总结> v<VERSION>..." > .tag-msg.txt
+
+# 创建 annotated tag
+git tag -a v<VERSION> -F .tag-msg.txt
+
+# 推送 tag
+git push origin v<VERSION>
+
+# 清理临时文件
+rm .tag-msg.txt
+```
+
+4. 切回 develop 继续开发：
+
+// turbo
+```
 git checkout develop
 ```
+
+5. 验证标签：
+
+// turbo
+```
+git tag -n10 v<VERSION>
+```
+
+确认输出包含完整的标签说明（标题 + 变更要点列表）。
+
+## 标签规则
+
+- **必须使用 annotated tag**（`git tag -a`），禁止使用 lightweight tag（`git tag`）
+- 标签消息第一行为 `release: <总结> v<版本号>`，后接空行和变更要点
+- 变更要点应与 `CHANGELOG.md` 中对应版本的内容一致
+- 标签打在 `main` 分支上，不要打在 `develop` 或 feature 分支上
 
 ## 注意事项
 
 - 不要假设发布意味着运行 `pnpm build` — 本仓库可能没有构建步骤
 - 如果仓库有大量未提交变更，将"清理工作目录"列为优先事项
+
