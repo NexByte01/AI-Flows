@@ -1,0 +1,105 @@
+name: Repository Checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches:
+      - 'feature/**'
+      - 'fix/**'
+      - 'docs/**'
+      - 'chore/**'
+
+jobs:
+  commit-messages:
+    name: Validate Commit Messages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Conventional Commit messages
+        shell: bash
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_AFTER: ${{ github.event.after }}
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            BASE_SHA="$PR_BASE_SHA"
+            HEAD_SHA="$PR_HEAD_SHA"
+          else
+            BASE_SHA="$PUSH_BEFORE"
+            HEAD_SHA="$PUSH_AFTER"
+          fi
+
+          COMMITS=$(git log --format=%s "$BASE_SHA..$HEAD_SHA" 2>/dev/null || echo "")
+
+          if [[ -z "$COMMITS" ]]; then
+            echo "No commit messages found to validate."
+            exit 0
+          fi
+
+          PATTERN='^(feat|fix|docs|chore|refactor|perf|style)(\([a-z0-9._/-]+\))?: .+'
+
+          while IFS= read -r subject; do
+            [[ -z "$subject" ]] && continue
+            if [[ ! "$subject" =~ $PATTERN ]]; then
+              echo "Invalid commit message: $subject"
+              echo "Expected: <type>(<scope>): <description>"
+              exit 1
+            fi
+          done <<< "$COMMITS"
+
+  agent-sync:
+    name: Check Agent Adapter Sync
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check adapter files are in sync
+        run: node scripts/sync-agents.mjs --check
+
+  repository-checks:
+    name: Repository Checks
+    runs-on: ubuntu-latest
+    needs:
+      - commit-messages
+      - agent-sync
+    if: ${{ always() }}
+    steps:
+      - name: Verify upstream checks passed
+        shell: bash
+        env:
+          COMMIT_MESSAGES_RESULT: ${{ needs.commit-messages.result }}
+          AGENT_SYNC_RESULT: ${{ needs.agent-sync.result }}
+        run: |
+          FAILED=0
+
+          for item in \
+            "Commit Messages:$COMMIT_MESSAGES_RESULT" \
+            "Agent Adapter Sync:$AGENT_SYNC_RESULT"
+          do
+            NAME="${item%%:*}"
+            RESULT="${item#*:}"
+
+            if [[ "$RESULT" != "success" ]]; then
+              echo "$NAME did not succeed: $RESULT"
+              FAILED=1
+            fi
+          done
+
+          if [[ "$FAILED" -ne 0 ]]; then
+            exit 1
+          fi
+
+          echo "All checks passed."

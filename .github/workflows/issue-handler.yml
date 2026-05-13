@@ -1,0 +1,106 @@
+name: Issue Auto Handler
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  issues: write
+
+jobs:
+  # Job 1: 新 Issue 自动回复
+  auto-reply:
+    if: github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post welcome comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = context.issue.number;
+            const author = context.payload.issue.user.login;
+
+            const body = [
+              `👋 你好 @${author}，感谢提交 Issue！`,
+              '',
+              '我们已收到你的反馈，会尽快审阅。为了更快解决问题，请确认以下信息：',
+              '',
+              '- **环境信息**：操作系统、浏览器版本、相关工具版本',
+              '- **复现步骤**：如何稳定触发此问题',
+              '- **预期 vs 实际行为**：你期望发生什么，实际发生了什么',
+              '',
+              '如果这是功能建议，请描述使用场景、目标用户和预期效果。',
+              '',
+              '注意：项目孵化的主要入口不是 Issues — 而是与 AI agent 的直接对话，由 agent 在 `projects/` 下创建和驱动项目。Issues 更适合用于协作、反馈和 Bug 追踪。',
+              '',
+              '> 🤖 此回复由自动化工作流生成。'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: body
+            });
+
+  # Job 2: 添加 bug 标签时分配给 Copilot coding agent
+  assign-copilot-on-bug:
+    if: github.event.action == 'labeled' && github.event.label.name == 'bug'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign issue to Copilot coding agent
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.COPILOT_ASSIGN_TOKEN }}
+          script: |
+            const issueNumber = context.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const baseBranch = context.payload.repository.default_branch;
+
+            console.log(`Bug label added to issue #${issueNumber}, assigning to Copilot coding agent...`);
+
+            try {
+              const response = await github.request(
+                'POST /repos/{owner}/{repo}/issues/{issue_number}/assignees',
+                {
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  assignees: ['copilot-swe-agent[bot]'],
+                  agent_assignment: {
+                    target_repo: `${owner}/${repo}`,
+                    base_branch: baseBranch,
+                    custom_instructions: '',
+                    custom_agent: '',
+                    model: ''
+                  }
+                }
+              );
+
+              const assignees = (response.data.assignees || []).map(a => String(a.login || a.name || '').trim());
+              const assigned = assignees.some(a => a.toLowerCase().includes('copilot'));
+
+              if (!assigned) {
+                throw new Error(`Copilot coding agent was not found in assignees. Current assignees: ${assignees.join(', ') || '(none)'}`);
+              }
+
+              console.log('Successfully assigned to Copilot coding agent.');
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: '🐛 已识别为 Bug 并分配给 Copilot coding agent。Agent 将分析此问题并尝试创建修复 PR。\n\n> 🤖 此回复由自动化工作流生成。'
+              });
+            } catch (error) {
+              const errMsg = String(error.message).replace(/[`$\\]/g, '');
+              console.error(`Failed to assign Copilot coding agent: ${errMsg}`);
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                body: `⚠️ 分配 Copilot coding agent 失败：\n\n\`${errMsg}\`\n\n请检查 Copilot coding agent 是否已启用，以及仓库策略是否允许自动分配。\n\n> 🤖 此回复由自动化工作流生成。`
+              });
+            }

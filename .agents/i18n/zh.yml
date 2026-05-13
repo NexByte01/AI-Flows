@@ -1,0 +1,103 @@
+# AI Flows — 中文语言包
+# 用于模板、工作流和初始化脚本
+
+meta:
+  language: 中文
+  code: zh
+  version: 1.0.0
+
+# ─── 通用标签 ──────────────────────────────────────────────────────────────────
+
+labels:
+  todo: "待办"
+  in_progress: "进行中"
+  completed: "已完成"
+  none: "（暂无）"
+  not_set: "（未设置）"
+
+# ─── 每日日志模板 ──────────────────────────────────────────────────────────────
+
+daily_log:
+  title: "{{DATE}} 工作日志"
+  sections:
+    completed: "今日完成"
+    decisions: "关键决策"
+    next_steps: "下一步"
+    notes: "备注"
+
+# ─── 任务追踪 ──────────────────────────────────────────────────────────────────
+
+task_tracking:
+  title: "任务追踪"
+  description: "本文件记录跨对话任务状态。"
+  status_guide: "状态标记：`[ ]` 待办 | `[~]` 进行中 | `[x]` 完成"
+  sections:
+    in_progress: "进行中"
+    todo: "待办"
+    recently_completed: "已完成（近期）"
+  footer: "最后更新：{{DATE}}"
+
+# ─── 项目孵化 ──────────────────────────────────────────────────────────────────
+
+incubation:
+  prompts:
+    project_goal: "项目目标"
+    target_users: "目标用户"
+    first_version_scope: "首版范围"
+    project_type: "项目类型（app / api / website / agent）"
+  messages:
+    skeleton_created: "项目骨架已创建在 projects/{{SLUG}}/"
+    registry_updated: "项目索引已更新"
+    ready: "可以开始实现"
+
+# ─── 项目生命周期 ──────────────────────────────────────────────────────────────
+
+lifecycle:
+  statuses:
+    building: "活跃开发中"
+    paused: "暂停，保留上下文"
+    archived: "归档，不再活跃"
+    migrated: "已迁移到独立仓库"
+
+# ─── 提交信息 ──────────────────────────────────────────────────────────────────
+
+commit:
+  types:
+    feat: "功能开发"
+    fix: "缺陷修复"
+    docs: "文档更新"
+    chore: "仓库维护"
+    refactor: "结构重构，不改变行为"
+    perf: "性能优化"
+    style: "代码风格调整"
+
+# ─── PR 模板 ──────────────────────────────────────────────────────────────────
+
+pull_request:
+  sections:
+    changes: "变更内容"
+    affected_areas: "影响范围"
+    testing: "测试"
+    memory_docs: "记忆与文档"
+    notes: "补充说明"
+  checklist:
+    static_review: "静态文件改动已人工检查"
+    code_check: "代码改动已做基础运行或语法检查"
+    workflow_check: "工作流改动已做静态审查或 YAML 校验"
+    no_test_needed: "无需额外测试（请说明原因）"
+    memory_updated: "已更新 memory/YYYY-MM-DD.md"
+    registry_updated: "已更新 projects/registry.yml（如项目状态发生变化）"
+    no_memory_update: "无需更新记忆文件（请说明原因）"
+
+# ─── 健康检查 ──────────────────────────────────────────────────────────────────
+
+doctor:
+  title: "健康检查"
+  checks:
+    agents_exists: "AGENTS.md 存在且有效"
+    memory_exists: "MEMORY.md 存在且包含必要字段"
+    tasks_exists: "memory/tasks.md 存在"
+    registry_consistent: "projects/registry.yml 与实际目录一致"
+    projects_have_memory: "所有 building 项目包含标准记忆文件"
+    templates_intact: "模板目录结构完整"
+    no_orphan_projects: "无孤立项目（目录存在但索引中没有）"
