@@ -1,0 +1,5 @@
+version: "1.0.0"
+type: app
+description: "General application template for SaaS, tools, and utility products"
+updated: "2026-06-01"
+min_ai_flows_version: "2.0.0"

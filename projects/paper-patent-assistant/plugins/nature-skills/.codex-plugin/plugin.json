@@ -1,0 +1,46 @@
+{
+  "name": "nature-skills",
+  "version": "1.0.0",
+  "description": "Academic writing, figure, citation, data availability, reviewer, response, reader, literature-search, and paper-to-presentation skills for Nature-style scientific work.",
+  "author": {
+    "name": "Yuan1z0825",
+    "url": "https://github.com/Yuan1z0825"
+  },
+  "homepage": "https://github.com/Yuan1z0825/nature-skills",
+  "repository": "https://github.com/Yuan1z0825/nature-skills",
+  "license": "MIT",
+  "keywords": [
+    "nature",
+    "academic",
+    "science",
+    "figure",
+    "writing",
+    "citation",
+    "publication"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Nature Skills",
+    "shortDescription": "Nature-style academic writing, figures, citations, and paper workflows",
+    "longDescription": "Use Nature Skills to polish and draft manuscript prose, prepare publication-grade figures, add strict academic citations, draft Data Availability and FAIR metadata statements, search and verify literature, simulate reviewer reports, write peer-review responses, generate bilingual paper readers, and convert papers into Chinese journal-club PPTX decks.",
+    "developerName": "Yuan1z0825",
+    "category": "Research",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Polish this abstract in Nature style.",
+      "Make this paper into a Chinese journal-club PPT.",
+      "Add strict Nature-family citations to this paragraph."
+    ],
+    "websiteURL": "https://github.com/Yuan1z0825/nature-skills",
+    "privacyPolicyURL": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
+    "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+    "brandColor": "#2563EB",
+    "composerIcon": "./assets/nature-skills-icon.png",
+    "logo": "./assets/nature-skills-icon.png",
+    "screenshots": []
+  }
+}

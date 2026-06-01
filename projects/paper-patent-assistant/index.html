@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学术论文与专利协作平台 - 科研加速引擎</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- 1. 左侧功能与配置面板 -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-icon">
+          <i data-lucide="cpu"></i>
+        </div>
+        <div class="brand-text">
+          <h1>SciPatent</h1>
+          <span>科研加速操作系统</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="menu-label">学术论文引擎</div>
+        <button class="nav-item active" data-action="polishing">
+          <i data-lucide="sparkles"></i>
+          <span>Nature 级润色</span>
+        </button>
+        <button class="nav-item" data-action="reviewer">
+          <i data-lucide="eye"></i>
+          <span>模拟盲审评估</span>
+        </button>
+        <button class="nav-item" data-action="paper2ppt">
+          <i data-lucide="presentation"></i>
+          <span>论文转 PPT 大纲</span>
+        </button>
+
+        <div class="menu-label">专利申请引擎</div>
+        <button class="nav-item" data-action="patent-trans">
+          <i data-lucide="languages"></i>
+          <span>学术转专利语言</span>
+        </button>
+        <button class="nav-item" data-action="claim-check">
+          <i data-lucide="shield-check"></i>
+          <span>权利要求书校验</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="config-card">
+          <h3><i data-lucide="sliders"></i> 引擎配置</h3>
+          <div class="control-group">
+            <label for="model-input">Ollama 本地模型名</label>
+            <input type="text" id="model-input" value="qwen2.5" placeholder="例如: qwen2.5, llama3" style="width: 100%; background-color: hsl(var(--bg-input)); border: 1px solid var(--glass-border); color: hsl(var(--text-primary)); padding: 8px 10px; border-radius: 6px; font-size: 12px; outline: none;">
+          </div>
+          <div class="control-group">
+            <label for="temp-slider">创新调节度</label>
+            <div class="slider-container">
+              <input type="range" id="temp-slider" min="0" max="100" value="30">
+              <span id="temp-val">0.3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 2. 中间主要工作台 -->
+    <main class="main-content">
+      <header class="app-header">
+        <div class="header-title">
+          <h2 id="current-title">Nature 级润色</h2>
+          <p id="current-subtitle">针对 Nature/CNS 级期刊规范优化句长、行文时态与学术用语</p>
+        </div>
+        <div class="header-meta">
+          <span class="badge branch"><i data-lucide="git-branch"></i> feature/paper-patent</span>
+          <span class="badge project"><i data-lucide="folder"></i> paper-patent-assistant</span>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <!-- 输入区 -->
+        <div class="pane input-pane">
+          <div class="pane-header">
+            <h3>原始草稿 / 技术方案</h3>
+            <div class="pane-actions">
+              <button id="clear-btn" title="清空内容"><i data-lucide="trash-2"></i></button>
+              <button id="sample-btn"><i data-lucide="file-text"></i> 载入示例</button>
+            </div>
+          </div>
+          <div class="pane-body">
+            <textarea id="src-input" placeholder="请在此处输入您的学术段落、技术思路或需要转换的技术文本..."></textarea>
+          </div>
+          <div class="pane-footer">
+            <div class="stats">
+              <span>字符数: <strong id="char-count">0</strong></span>
+              <span>单词数: <strong id="word-count">0</strong></span>
+            </div>
+            <button id="action-btn" class="btn-primary">
+              <span>开始学术加速</span>
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 输出区 -->
+        <div class="pane output-pane">
+          <div class="pane-header">
+            <h3>优化与转换结果</h3>
+            <div class="pane-actions">
+              <button id="copy-btn" title="复制结果" disabled><i data-lucide="copy"></i></button>
+              <button id="export-btn" title="导出 Markdown" disabled><i data-lucide="download"></i></button>
+            </div>
+          </div>
+          <div class="pane-body" id="output-body">
+            <div class="empty-state">
+              <i data-lucide="terminal"></i>
+              <p>等待输入并运行加速引擎...</p>
+              <span>在左侧面板中选择不同的模式，输入您的科研文本后点击“开始学术加速”。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 3. 右侧诊断与分析面板 -->
+    <aside class="analysis-panel">
+      <div class="panel-header">
+        <h3><i data-lucide="activity"></i> 实时诊断中心</h3>
+      </div>
+      <div class="panel-body" id="analysis-body">
+        <div class="empty-diagnostic">
+          <p>暂无运行数据</p>
+          <span>执行加速后，此栏将显示语法句式评分、句长检测、专利要素缺失等诊断报告。</span>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="diagnostic-score">
+          <span>综合可发表指数 / 专利合规率</span>
+          <div class="score-bar-container">
+            <div class="score-bar" style="width: 0%"></div>
+            <span class="score-text">N/A</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Custom JS -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

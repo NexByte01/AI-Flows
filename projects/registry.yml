@@ -17,5 +17,17 @@
 #     migrated_to: ""                     # 迁移目标仓库，status 为 migrated 时填写
 
 schema_version: 2
-current_project: null
-projects: []
+current_project: paper-patent-assistant
+projects:
+  - slug: paper-patent-assistant
+    name: 学术论文与专利协作平台
+    type: app
+    status: building
+    template: app-starter
+    template_version: "1.0.0"
+    created: 2026-06-01
+    updated: 2026-06-01
+    description: "融合 Nature 级学术润色与专利交底书转化功能的科研协作平台。"
+    external: false
+    repository: ""
+    migrated_to: ""

@@ -1,0 +1,13 @@
+{
+  "name": "nature-skills",
+  "description": "A growing collection of Claude-compatible academic workflow bundles for producing work at Nature-journal standard. Covers scientific figures (nature-figure), manuscript prose polishing (nature-polishing), manuscript drafting and methods writing (nature-writing), reviewer-style pre-submission assessment (nature-reviewer), citation retrieval and export (nature-citation), data availability statements and FAIR metadata (nature-data), paper-to-PPTX presentation conversion (nature-paper2ppt), literature search via MCP (nature-academic-search), paper reading and annotation (nature-reader), and peer-review response drafting (nature-response). Future releases planned: statistical reporting, cover letters, and review articles. Rules are derived from primary sources, including published Nature papers, journal author guidelines, and structured writing curricula.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Yuan1z0825",
+    "email": ""
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/Yuan1z0825/nature-skills",
+  "repository": "https://github.com/Yuan1z0825/nature-skills",
+  "keywords": ["nature", "academic", "science", "figure", "writing", "citation", "publication"]
+}
