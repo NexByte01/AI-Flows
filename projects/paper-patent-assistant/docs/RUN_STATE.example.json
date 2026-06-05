@@ -1,0 +1,45 @@
+{
+  "project": "paper-patent-assistant",
+  "workflow": "scipatent-lifecycle",
+  "schema_version": 1,
+  "current_phase": "phase_2_plotting",
+  "current_gate": "gate_2b_figure_confirmation",
+  "evidence_level": "mock",
+  "config": {
+    "plotting_backend": "python",
+    "patent_transformation_enabled": true
+  },
+  "human_approvals": {
+    "gate_1_baseline": true,
+    "gate_2_evidence": true,
+    "gate_2b_figures": false,
+    "gate_3_review_strategy": false,
+    "gate_3b_patent_branch": false,
+    "gate_4_patent_scope": false
+  },
+  "artifacts": [
+    {
+      "path": "memory/mock_dataset.md",
+      "type": "dataset_description",
+      "evidence_level": "mock",
+      "status": "available"
+    },
+    {
+      "path": "docs/figures/",
+      "type": "figures",
+      "evidence_level": "mock",
+      "status": "generated"
+    }
+  ],
+  "verification": [
+    {
+      "command": "pnpm run figures",
+      "status": "expected",
+      "notes": "Uses uv to resolve numpy and matplotlib on demand."
+    }
+  ],
+  "open_risks": [
+    "Replace mock data with real or verified experimental data before formal manuscript or patent delivery.",
+    "Verify DOI, publication year, and source for Phase 1 baseline references."
+  ]
+}

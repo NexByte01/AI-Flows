@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "figures": "uv run --with numpy --with matplotlib python scripts/plot_figures.py",
     "preview": "vite preview"
   },
   "devDependencies": {

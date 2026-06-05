@@ -17,6 +17,7 @@ description: >
 always_load:
   - static/core/stance.md
   - static/core/workflow.md
+  - ../_shared/domain/ai-coal-chem.md
 
 references:
   on_demand:

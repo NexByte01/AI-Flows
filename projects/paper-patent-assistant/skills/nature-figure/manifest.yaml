@@ -11,6 +11,7 @@ always_load:
   # Skill-local core (figure does not use the prose-oriented _shared layer)
   - static/core/contract.md
   - static/core/stance.md
+  - ../_shared/domain/ai-coal-chem.md
 
 axes:
   backend:

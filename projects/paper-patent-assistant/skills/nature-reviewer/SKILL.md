@@ -108,6 +108,7 @@ Risk / unsupported claims
 
 | File | Open when |
 |---|---|
+| [../_shared/domain/ai-coal-chem.md](../_shared/domain/ai-coal-chem.md) | **[ALWAYS LOAD]** You need the cross-disciplinary domain base, concept disambiguation ledger, and reviewer red lines for AI x Coal Chemical Engineering |
 | [references/source-basis.md](references/source-basis.md) | You need source provenance, local rule summaries, or source-vs-implementation boundaries |
 | [references/reviewer-workflow.md](references/reviewer-workflow.md) | You need the invocation order, fact-base extraction flow, or synthesis rules |
 | [references/review-axes.md](references/review-axes.md) | You need the evaluation axes or reviewer weighting logic |
@@ -121,7 +122,8 @@ Risk / unsupported claims
 Use sources in this order:
 
 1. `references/editorial criteria and processes.md`
-2. manuscript facts supplied by the user
-3. conservative local implementation rules documented in `references/source-basis.md`
+2. `../_shared/domain/ai-coal-chem.md` (for cross-disciplinary domain validation and reviewer red lines)
+3. manuscript facts supplied by the user
+4. conservative local implementation rules documented in `references/source-basis.md`
 
 If a user asks for policy-level certainty beyond this local source, state the limit instead of improvising broader journal policy.

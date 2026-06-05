@@ -26,7 +26,7 @@ projects:
     template: app-starter
     template_version: "1.0.0"
     created: 2026-06-01
-    updated: 2026-06-01
+    updated: 2026-06-05
     description: "融合 Nature 级学术润色与专利交底书转化功能的科研协作平台。"
     external: false
     repository: ""

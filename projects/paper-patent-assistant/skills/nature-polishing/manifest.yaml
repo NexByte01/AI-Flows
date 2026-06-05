@@ -10,6 +10,7 @@ always_load:
   - ../_shared/core/paper-type-taxonomy.md
   - ../_shared/core/ethics.md
   - ../_shared/core/terminology-ledger.md
+  - ../_shared/domain/ai-coal-chem.md
   # Skill-local core
   - static/core/stance.md
   - static/core/failure-modes.md

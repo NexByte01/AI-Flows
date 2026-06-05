@@ -13,13 +13,15 @@
 - 项目代码留在本目录 — 不要写回根目录
 - 项目任务记录在 `memory/tasks.md`
 - 关键决策记录在 `MEMORY.md`
+- **Agent 执行准则**：在处理任何科研指令时，必须优先读取 `.agents/workflows/scipatent-lifecycle.md` 作为主控工作流，严格遵守其中的 6 个审阅/分支门槛（Gates）。
 - 根级规则与项目级规则冲突时，根级规则优先
 
 ## 开发约束
 
-- 技术栈：HTML + JavaScript + Vanilla CSS (符合极简高保真前端规范)
-- 目标环境：（指定：web / mobile / desktop / CLI）
-- 最低浏览器支持：（如适用则指定）
+- 技术栈：**纯 Agent 驱动 (Markdown Skills + Prompt Orchestration)**，前端 Web 代码已弃用。
+- 领域约束：必须加载 `skills/_shared/domain/ai-coal-chem.md` 处理交叉学科上下文。
+- 证据约束：论文、图表、专利草案必须标注数据来源等级；模拟数据只能用于集成测试和演示，不得伪装成真实实验结果。
+- 产物约束：每轮完整生命周期应维护成果包清单与运行状态，至少记录当前 Gate、输入证据、输出文件、验证命令和待人工确认事项。
 
 ## 代码风格
 

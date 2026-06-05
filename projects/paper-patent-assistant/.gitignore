@@ -1,1 +1,32 @@
 .DS_Store
+
+# Dependencies and build output
+node_modules/
+dist/
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# SciPatent private/generated runtime state
+docs/RUN_STATE.current.json
+docs/figures/
+docs/paper_draft.md
+docs/patent_draft.md
+docs/technical_disclosure.md
+docs/ppt_outline.md
+
+# User-provided or generated research data
+data/
+datasets/
+uploads/
+outputs/
+artifacts/
+memory/mock_dataset.md
+memory/phase*_*.md
+memory/reviewer_report.md
+
+# Local logs
+*.log
+pnpm-debug.log*
