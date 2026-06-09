@@ -20,14 +20,14 @@ schema_version: 2
 current_project: paper-patent-assistant
 projects:
   - slug: paper-patent-assistant
-    name: 学术论文与专利协作平台
+    name: Science Workflow
     type: app
     status: building
     template: app-starter
     template_version: "1.0.0"
     created: 2026-06-01
     updated: 2026-06-05
-    description: "融合 Nature 级学术润色与专利交底书转化功能的科研协作平台。"
+    description: "面向 SCI/期刊论文与硕博论文的科研写作 Agent 工作流，煤化工为第一垂直，专利为可选扩展。"
     external: false
     repository: ""
     migrated_to: ""
