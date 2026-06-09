@@ -1,17 +1,17 @@
-# SciPatent 全周期科研流水线 (SciPatent Lifecycle)
+# SciPatent 专利 Extension 流水线 (SciPatent Lifecycle)
 
-**Description**: 执行一站式科研生命周期，串联 Google Science Skills 与专利双引擎，涵盖“文献检索 → 论证设计 → 论文盲审 → 专利转化”。
-**Triggers**: 当用户请求“走完论文和专利全流程”、“从检索到写专利”或直接调用 `/scipatent` 触发。
+**Description**: Science Workflow 的可选专利 extension，串联论文成果到权利要求书与技术交底书。
+**Triggers**: 仅当用户明确请求“转专利”“技术交底书”“权利要求书”或直接调用 `/scipatent-lifecycle` 时触发。
 
 ## 0. 全局加载要求 (Global Context)
 在执行本工作流的任何步骤前，必须静默加载并严格遵守以下领域规则与控制配置：
 1. **领域大脑**：`d:\Projects\AI Flows\projects\paper-patent-assistant\skills\_shared\domain\ai-coal-chem.md` （定义交叉学科防混淆协议及专利审查红线）。
 2. **流程配置**：`d:\Projects\AI Flows\projects\paper-patent-assistant\scipatent_config.json` （控制工作流分支选择与执行后端）。
-   - *注意*：Agent 在每次开始或恢复执行前，必须首先读取该配置文件。如果文件缺失，则初始化创建它，默认启用专利转化 (`"patent_transformation.enabled": true`)。
+   - *注意*：Agent 在每次开始或恢复执行前，必须首先读取该配置文件。如果文件缺失，则初始化创建它，默认禁用专利转化 (`"patent_transformation.enabled": false`)。
 3. **证据政策**：`d:\Projects\AI Flows\projects\paper-patent-assistant\docs\EVIDENCE_POLICY.md` （定义 Mock / Described / Verified / Real 证据等级）。
 4. **成果包规范**：`d:\Projects\AI Flows\projects\paper-patent-assistant\docs\DELIVERABLES.md` （定义每轮输出文件、验证命令与 Gate 状态记录方式）。
 
-执行任何论文、图表或专利生成前，必须明确当前输入数据的证据等级。若证据等级为 `mock`，输出必须标注“仅用于端到端测试或演示”，不得把模拟结果写成真实实验结论。
+执行任何论文、图表或专利生成前，必须明确当前输入数据的证据等级。若证据等级为 `mock`，输出必须标注“仅用于端到端测试或演示”，不得把模拟结果写成真实实验结论。本流程不构成法律意见。
 
 ---
 

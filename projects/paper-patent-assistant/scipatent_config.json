@@ -1,6 +1,6 @@
 {
   "plotting_backend": "python",
   "patent_transformation": {
-    "enabled": true
+    "enabled": false
   }
 }
