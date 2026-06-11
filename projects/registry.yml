@@ -26,8 +26,8 @@ projects:
     template: app-starter
     template_version: "1.0.0"
     created: 2026-06-01
-    updated: 2026-06-05
-    description: "面向 SCI/期刊论文与硕博论文的科研写作 Agent 工作流，煤化工为第一垂直，专利为可选扩展。"
+    updated: 2026-06-09
+    description: "面向通用 SCI/期刊论文与硕博论文的科研写作 Agent 工作流，煤化工/能源化工作为可切换行业包，专利为可选扩展。"
     external: false
     repository: ""
     migrated_to: ""
