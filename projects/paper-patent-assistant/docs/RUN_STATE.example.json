@@ -4,7 +4,7 @@
   "schema_version": 2,
   "audience": "individual_graduate_student",
   "paper_type": "journal",
-  "domain_pack": "coal_chem_energy_chem",
+  "domain_pack": null,
   "current_phase": "journal_phase_2_evidence_confirmation",
   "current_gate": "gate_j2_evidence",
   "evidence_level": "described",

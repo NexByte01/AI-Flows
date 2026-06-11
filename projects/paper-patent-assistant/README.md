@@ -1,6 +1,6 @@
 # Science Workflow
 
-> 面向硕博个人的科研写作与成果生成 Agent 工作流。首版主线覆盖 SCI/期刊论文与硕博论文，煤化工/能源化工作为第一垂直领域，专利能力作为可选 extension 保留。
+> 面向硕博个人的通用科研写作与成果生成 Agent 工作流。首版主线覆盖 SCI/期刊论文与硕博论文；煤化工/能源化工作为可切换行业包，专利能力作为可选 extension 保留。
 
 ---
 
@@ -12,7 +12,7 @@ Science Workflow 不是代写工具，也不是传统 Web SaaS。它是一个基
 
 1. **Journal Flow**：SCI/期刊论文写作，覆盖选题、文献核验、证据确认、科研图表、初稿、模拟审稿和返修。
 2. **Thesis Flow**：硕博论文写作，覆盖开题、文献综述、章节计划、实验/图表、导师意见响应和答辩材料。
-3. **Coal-Chem Domain Pack**：煤化工/能源化工第一垂直领域包，沉淀气化、热化学、过程模拟、AI for Science 和工业控制语境。
+3. **Industry Packs**：可切换行业包层，默认提供煤化工/能源化工示例包，沉淀气化、热化学、过程模拟、AI for Science 和工业控制语境。
 4. **Patent Extension**：论文成果转专利/技术交底书的可选插件，默认不进入主流程。
 
 ---
@@ -21,7 +21,7 @@ Science Workflow 不是代写工具，也不是传统 Web SaaS。它是一个基
 
 - **AI 不伪造数据**：所有论文断言、图表、专利文本必须标注证据等级。
 - **用户保留学术责任**：系统只做写作辅助、结构化审阅、证据核验和表达优化，不保证录用、毕业、查重通过或专利授权。
-- **煤化工优先但不锁死**：通用写作内核可迁移，煤化工领域包是第一商业垂直。
+- **通用主线优先，行业包可插拔**：主标题永远是科研写作，煤化工只是默认示例行业包之一。
 - **真实产物本地生成**：论文、图表、导师意见、真实数据和 run state 默认不提交到仓库。
 
 ---
@@ -31,10 +31,10 @@ Science Workflow 不是代写工具，也不是传统 Web SaaS。它是一个基
 ### 1. Science Workflow 主入口
 
 ```text
-/science-workflow 帮我把煤气化炉温度场预测课题整理成 SCI 论文工作流
+/science-workflow 帮我把这个课题整理成 SCI 论文工作流
 ```
 
-Agent 会载入 `projects/paper-patent-assistant/.agents/workflows/science-workflow.md`，并先判断用户目标是 `journal` 还是 `thesis`。
+Agent 会载入 `projects/paper-patent-assistant/.agents/workflows/science-workflow.md`，并先判断用户目标是 `journal` 还是 `thesis`；如需行业语境，再加载对应行业包。
 
 ### 2. 专利插件入口
 
@@ -65,7 +65,7 @@ paper-patent-assistant/
 │   ├── advisor_response.md
 │   └── revision_action_table.md
 ├── skills/
-│   ├── _shared/domain/ai-coal-chem.md
+│   ├── _shared/domain/ai-coal-chem.md   # 默认行业包示例
 │   ├── nature-writing/
 │   ├── nature-reviewer/
 │   ├── nature-figure/

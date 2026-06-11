@@ -4,7 +4,7 @@ description: 面向 SCI/期刊论文与硕博论文的 Science Workflow 主入�
 
 # Science Workflow
 
-本工作流是 `paper-patent-assistant` 项目的默认主入口。它服务硕博个人，首版覆盖 SCI/期刊论文与硕博论文写作，煤化工/能源化工为第一垂直领域。
+本工作流是 `paper-patent-assistant` 项目的默认主入口。它服务硕博个人，首版覆盖通用 SCI/期刊论文与硕博论文写作；煤化工/能源化工作为默认示例行业包，按需加载。
 
 ## 0. 全局加载要求
 
@@ -13,7 +13,7 @@ description: 面向 SCI/期刊论文与硕博论文的 Science Workflow 主入�
 1. `docs/EVIDENCE_POLICY.md`
 2. `docs/DELIVERABLES.md`
 3. `docs/RUN_STATE.example.json`
-4. 当主题涉及煤化工/能源化工时，加载 `skills/_shared/domain/ai-coal-chem.md`
+4. 当用户明确选择煤化工/能源化工行业包时，加载 `skills/_shared/domain/ai-coal-chem.md`
 
 默认不进入专利流程。仅当用户明确要求“转专利”“技术交底书”“权利要求书”时，才切换到 `scipatent-lifecycle.md`。
 
@@ -27,11 +27,17 @@ description: 面向 SCI/期刊论文与硕博论文的 Science Workflow 主入�
 
 若目标不明确，先询问用户是写期刊论文还是学位论文。
 
+### 1.1 行业包选择（可选）
+
+- 默认不强制加载行业包。
+- 如果用户明确指定煤化工/能源化工语境，再加载对应行业包。
+- 行业包只影响术语、示例和约束语境，不改变 Gates、证据政策和交付结构。
+
 ## 2. Journal Flow
 
 ### Phase J1: 选题与文献核验
 
-- 明确研究问题、目标期刊层级、学科方向和煤化工/能源化工语境。
+- 明确研究问题、目标期刊层级、学科方向；如启用行业包，再同步校准行业语境。
 - 建立引用核验表，记录 DOI/URL、年份、来源、检索工具和核验状态。
 - 输出 Research Gap 与核心贡献假设。
 
@@ -64,7 +70,7 @@ description: 面向 SCI/期刊论文与硕博论文的 Science Workflow 主入�
 ### Phase T1: 开题与章节计划
 
 - 使用 `templates/chapter_plan.md` 建立学位论文结构。
-- 明确研究问题、章节职责、每章证据和预期图表。
+- 明确研究问题、章节职责、每章证据和预期图表；如启用行业包，再补充对应约束。
 
 **Gate T1**：用户确认论文题目、章节结构和研究边界。
 
