@@ -14,9 +14,10 @@
 
 ### Sprint 4：Science Workflow 商业化转向
 - [x] 新建 `feature/science-workflow` 分支
+- [x] 将产品主线改写为通用科研写作 + 可切换行业包
 - [x] 将 README、MEMORY、ARCHITECTURE 主定位调整为 Science Workflow
 - [x] 将专利能力降为 extension/plugin，不再作为主流程卖点
-- [x] 将煤化工/能源化工明确为第一垂直领域
+- [x] 将煤化工/能源化工降为默认示例行业包
 - [x] 新增 `science-workflow.md` 项目级主入口
 - [x] 新增根级 `/science-workflow` 重定向工作流
 - [x] 将 DELIVERABLES 拆分为 Journal Package、Thesis Package、Patent Extension Package
@@ -26,7 +27,8 @@
 - [ ] 为 Phase 1 文献基线增加 DOI、年份、来源的逐条核验清单
 
 ### Sprint 5：真实用户交付验证
-- [ ] 用煤化工 SCI 论文题目 dry-run 到 Gate 2，确认不生成伪数据
+- [ ] 用通用 SCI 论文题目 dry-run 到 Gate 2，确认不生成伪数据
+- [ ] 用煤化工 SCI 论文题目 dry-run 到 Gate 2，确认行业包可选接入
 - [ ] 用硕士论文题目 dry-run 到章节计划，确认导师意见响应结构可用
 - [ ] 将专利 extension 触发条件写入测试说明
 
@@ -42,4 +44,4 @@
 
 ---
 
-*最后更新：2026-06-05*
+*最后更新：2026-06-09*
