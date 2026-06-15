@@ -54,3 +54,4 @@ graph TD
 | 2026-06-05 | 增加可信协作层 | 补充证据分级、成果包追踪、运行状态样例与绘图复现约束 |
 | 2026-06-05 | 转向 Science Workflow | 商业主线调整为 SCI/期刊论文和硕博论文，煤化工为默认示例行业包，专利降为 extension |
 | 2026-06-09 | 通用化转向 | 主线叙事改为通用学术写作 + 可切换行业包，煤化工退回示例层 |
+| 2026-06-15 | 引用基线与本地测试闭环 | `templates/citation_verification.md` 升级为基线文献矩阵 + Research Gap 两段式；为 `nature-academic-search` MCP 增加 `pytest.ini` / `tests/conftest.py` / `requirements-dev.txt` 与 README 本地测试小节，31 用例本地可收集可跑 |

@@ -6,7 +6,7 @@
 
 ## 进行中
 
-- [/] **Sprint 4：Science Workflow 商业化转向**
+- [x] **Sprint 4：Science Workflow 商业化转向**
 
 ---
 
@@ -23,8 +23,8 @@
 - [x] 将 DELIVERABLES 拆分为 Journal Package、Thesis Package、Patent Extension Package
 - [x] 扩展 EVIDENCE_POLICY，加入导师意见、引用核验、查重风险和 AI 辅助边界
 - [x] 新增真实数据 intake、引用核验、章节计划、导师意见响应、返修行动模板
-- [ ] 为 `nature-academic-search` MCP 增加本地测试环境说明，并明确 pytest/依赖安装方式
-- [ ] 为 Phase 1 文献基线增加 DOI、年份、来源的逐条核验清单
+- [x] 为 `nature-academic-search` MCP 增加本地测试环境说明，并明确 pytest/依赖安装方式
+- [x] 为 Phase 1 文献基线增加 DOI、年份、来源的逐条核验清单
 
 ### Sprint 5：真实用户交付验证
 - [ ] 用通用 SCI 论文题目 dry-run 到 Gate 2，确认不生成伪数据
