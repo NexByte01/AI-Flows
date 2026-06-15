@@ -16,6 +16,18 @@ Claude Code 的学术搜索技能包，集成 PubMed、CrossRef、arXiv 三大�
 bash install.sh your-email@example.com
 ```
 
+## 本地测试
+
+MCP 服务器自带的单元测试在 [`mcp-server/tests/`](mcp-server/tests/)，完全 mock，
+无需联网、无需 API key。详细说明见 [`mcp-server/README.md`](mcp-server/README.md#本地测试)，
+一行命令即可运行：
+
+```bash
+cd mcp-server
+uv run --with-requirements requirements.txt --with-requirements requirements-dev.txt pytest
+```
+
+
 ## MCP Tools
 
 | Tool | 说明 |

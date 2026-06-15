@@ -1,0 +1,23 @@
+# Development dependencies for the academic-search MCP server.
+# Install alongside requirements.txt:
+#
+#   python -m venv .venv
+#   .venv\Scripts\activate            # Windows
+#   pip install -r requirements.txt -r requirements-dev.txt
+#
+# Or in one shot with uv:
+#
+#   uv pip install --system -r requirements.txt -r requirements-dev.txt
+#
+# Or fully ephemeral with uv (no venv required):
+#
+#   uv run --with-requirements requirements.txt --with-requirements requirements-dev.txt pytest
+
+pytest>=7.0,<9.0
+
+# Note: `test_sources.py` only depends on `requests`, `toml`, and the stdlib.
+# `lxml` (declared in `requirements.txt`) is a runtime dependency for the MCP
+# server but is NOT required for the unit tests — and on Windows it pulls in a
+# C compiler toolchain. We therefore intentionally do NOT install `lxml` when
+# running the test suite locally. CI / production installs continue to use
+# `requirements.txt` as-is.
