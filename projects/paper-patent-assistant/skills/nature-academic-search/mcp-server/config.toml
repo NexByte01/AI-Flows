@@ -12,7 +12,7 @@ timeout = 15
 timeout = 30
 
 [openalex]
-api_key = ""  # Optional, via OPENALEX_API_KEY env var
+api_key = "Ksua3Lw8kGfRCQ9y75iBcM"  # Optional, via OPENALEX_API_KEY env var
 timeout = 30
 
 [semantic_scholar]
