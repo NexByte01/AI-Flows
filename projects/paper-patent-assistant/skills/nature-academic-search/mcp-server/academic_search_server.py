@@ -16,7 +16,10 @@ from typing import Any
 
 from mcp.server import FastMCP
 
-from sources import ArxivSource, CrossRefSource, PubMedSource
+from sources import (
+    ArxivSource, CrossRefSource, PubMedSource,
+    OpenAlexSource, SemanticScholarSource, EuropePMCSource,
+)
 from utils import AcademicSearchError, DataSourceError, setup_logging
 
 mcp = FastMCP("academic-search")
@@ -26,6 +29,9 @@ logger = setup_logging()
 _crossref = CrossRefSource()
 _pubmed = PubMedSource()
 _arxiv = ArxivSource()
+_openalex = OpenAlexSource()
+_semantic_scholar = SemanticScholarSource()
+_europepmc = EuropePMCSource()
 
 
 # ---------------------------------------------------------------------------
@@ -45,6 +51,10 @@ def _detect_id_type(id: str) -> str:
         return "pmid"
     if re.match(r"^\d{4}\.\d{4,5}(v\d+)?$", id):
         return "arxiv"
+    if id.upper().startswith("W") and id[1:].isdigit():
+        return "openalex"
+    if id.upper().startswith("PMC") and id[3:].isdigit():
+        return "pmcid"
     raise ValueError(f"Cannot detect ID type for: {id}")
 
 
@@ -57,7 +67,7 @@ def _resolve_id_type(id: str, id_type: str) -> str:
     if id_type == "auto":
         return _detect_id_type(id)
     normalised = id_type.lower().strip()
-    if normalised in ("doi", "pmid", "arxiv"):
+    if normalised in ("doi", "pmid", "arxiv", "openalex", "pmcid", "s2"):
         return normalised
     raise ValueError(f"Unsupported id_type: {id_type}")
 
@@ -91,6 +101,18 @@ async def _search_arxiv(query: str, rows: int) -> dict:
     return await asyncio.to_thread(_arxiv.search, query, rows)
 
 
+async def _search_openalex(query: str, rows: int) -> dict:
+    return await asyncio.to_thread(_openalex.search, query, rows)
+
+
+async def _search_semantic_scholar(query: str, rows: int) -> dict:
+    return await asyncio.to_thread(_semantic_scholar.search, query, rows)
+
+
+async def _search_europepmc(query: str, rows: int) -> dict:
+    return await asyncio.to_thread(_europepmc.search, query, rows)
+
+
 async def _search_all(
     query: str,
     sources: list[str],
@@ -110,6 +132,15 @@ async def _search_all(
     if "arxiv" in sources:
         tasks.append(asyncio.create_task(_search_arxiv(query, rows)))
         source_order.append("arxiv")
+    if "openalex" in sources:
+        tasks.append(asyncio.create_task(_search_openalex(query, rows)))
+        source_order.append("openalex")
+    if "semantic_scholar" in sources:
+        tasks.append(asyncio.create_task(_search_semantic_scholar(query, rows)))
+        source_order.append("semantic_scholar")
+    if "europepmc" in sources:
+        tasks.append(asyncio.create_task(_search_europepmc(query, rows)))
+        source_order.append("europepmc")
 
     if not tasks:
         return {"total": 0, "results": [], "errors": []}
@@ -163,10 +194,10 @@ def search_papers(
         return _json_error("Empty search query")
 
     if sources is None:
-        sources = ["crossref", "pubmed", "arxiv"]
+        sources = ["crossref", "pubmed", "arxiv", "openalex", "semantic_scholar", "europepmc"]
 
     # Validate source names
-    valid_sources = {"crossref", "pubmed", "arxiv"}
+    valid_sources = {"crossref", "pubmed", "arxiv", "openalex", "semantic_scholar", "europepmc"}
     invalid = [s for s in sources if s not in valid_sources]
     if invalid:
         return _json_error(f"Invalid sources: {invalid}. Valid: {sorted(valid_sources)}")
@@ -224,6 +255,12 @@ def get_paper_by_id(id: str, id_type: str = "auto") -> str:
             result = _pubmed.get_by_pmid(id.strip())
         elif resolved_type == "arxiv":
             result = _arxiv.get_by_id(id.strip())
+        elif resolved_type == "openalex":
+            result = _openalex.get_by_id(id.strip())
+        elif resolved_type == "pmcid":
+            result = _europepmc.get_by_pmcid(id.strip())
+        elif resolved_type == "s2":
+            result = _semantic_scholar.get_by_id(id.strip())
         else:
             return _json_error(f"Unsupported ID type: {resolved_type}")
     except DataSourceError as exc:
@@ -378,6 +415,127 @@ def lookup_mesh(term: str) -> str:
         return _json_error(f"Unexpected error: {exc}")
 
     return _json_ok(result)
+
+
+@mcp.tool()
+def get_citation_graph(
+    id: str,
+    id_type: str = "auto",
+    direction: str = "citations",
+    rows: int = 20,
+) -> str:
+    """Get the citation graph (citing or referenced papers) for a paper.
+
+    Args:
+        id: Paper identifier (DOI, PMID, arXiv ID, S2 paper ID, or PMCID).
+        id_type: Force identifier type or "auto".
+        direction: "citations" for papers that cite this one,
+                   "references" for papers cited by this one.
+        rows: Number of results (max 100).
+
+    Returns:
+        JSON string with the citation/reference list.
+    """
+    if not id or not id.strip():
+        return _json_error("Empty identifier")
+
+    logger.info("get_citation_graph called", extra={
+        "tool": "get_citation_graph",
+        "id": id,
+        "direction": direction,
+    })
+
+    try:
+        resolved = _resolve_id_type(id, id_type)
+    except ValueError as exc:
+        return _json_error(str(exc))
+
+    rows = max(1, min(rows, 100))
+
+    try:
+        # Prefer Semantic Scholar for citation graph
+        s2_id = id.strip()
+        if resolved == "doi":
+            s2_id = f"DOI:{s2_id}"
+        elif resolved == "pmid":
+            s2_id = f"PMID:{s2_id}"
+        elif resolved == "arxiv":
+            s2_id = f"ARXIV:{s2_id}"
+
+        if direction == "references":
+            result = _semantic_scholar.get_references(s2_id, rows)
+        else:
+            result = _semantic_scholar.get_citations(s2_id, rows)
+    except DataSourceError:
+        # Fall back to Europe PMC
+        try:
+            source = "MED" if resolved == "pmid" else "PMC"
+            epmc_id = id.strip()
+            if direction == "references":
+                result = _europepmc.get_references(source, epmc_id, rows)
+            else:
+                result = _europepmc.get_citations(source, epmc_id, rows)
+        except DataSourceError as exc2:
+            return _json_error(f"Citation graph unavailable: {exc2}")
+    except Exception as exc:
+        logger.exception("get_citation_graph failed")
+        return _json_error(f"Unexpected error: {exc}")
+
+    return _json_ok(result)
+
+
+@mcp.tool()
+def get_fulltext(id: str, id_type: str = "auto") -> str:
+    """Get full text of an open-access paper.
+
+    Tries Europe PMC (XML/text) first, then arXiv if the paper is a preprint.
+
+    Args:
+        id: Paper identifier (PMCID, DOI, PMID, or arXiv ID).
+        id_type: Force identifier type or "auto".
+
+    Returns:
+        JSON string with the full text content and format.
+    """
+    if not id or not id.strip():
+        return _json_error("Empty identifier")
+
+    logger.info("get_fulltext called", extra={
+        "tool": "get_fulltext",
+        "id": id,
+    })
+
+    try:
+        resolved = _resolve_id_type(id, id_type)
+    except ValueError as exc:
+        return _json_error(str(exc))
+
+    # Try PMCID direct access
+    if resolved == "pmcid":
+        try:
+            result = _europepmc.get_fulltext(id.strip())
+            return _json_ok(result)
+        except DataSourceError as exc:
+            return _json_error(f"Full text unavailable: {exc}")
+
+    # For DOI/PMID, look up PMCID first
+    if resolved in ("doi", "pmid"):
+        try:
+            query = f"DOI:{id.strip()}" if resolved == "doi" else f"EXT_ID:{id.strip()} AND SRC:MED"
+            search_result = _europepmc.search(query, rows=1)
+            if search_result.get("results"):
+                pmcid = search_result["results"][0].get("pmcid", "")
+                if pmcid:
+                    result = _europepmc.get_fulltext(pmcid)
+                    return _json_ok(result)
+        except DataSourceError:
+            pass
+
+    return _json_ok({
+        "status": "abstract_only",
+        "message": f"Full text not available via Open Access for {id}. "
+                   "Use get_paper_by_id to retrieve the abstract.",
+    })
 
 
 # ---------------------------------------------------------------------------

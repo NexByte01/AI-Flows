@@ -2,26 +2,46 @@
 
 Multi-source literature search, citation verification, citation format conversion, and reference management via MCP tools.
 
-## MCP tools
+## MCP tools (academic-search server)
 
-### Core search
+### Core search — `search_papers`
+
+All 6 sources are queried in parallel by default. Use the `sources` parameter to select specific sources.
+
+| Source | API | Best For |
+|--------|-----|----------|
+| `crossref` | CrossRef REST API | Cross-disciplinary, DOI resolution |
+| `pubmed` | NCBI E-utilities | Biomedical, MeSH, clinical trials |
+| `arxiv` | arXiv OAI-PMH | Preprints (physics, math, CS, biology) |
+| `openalex` | OpenAlex REST API | All disciplines, impact metrics, OA PDF |
+| `semantic_scholar` | Semantic Scholar API | Citation graph, TLDR, influential citations |
+| `europepmc` | Europe PMC REST API | OA full-text, biomedical citation graph |
+
+### Paper retrieval — `get_paper_by_id`
+
+| ID Type | Format | Example |
+|---------|--------|---------|
+| DOI | `10.xxxx/xxxxx` | `10.1038/nature12373` |
+| PMID | Numeric | `23903684` |
+| arXiv | `YYYY.NNNNN` | `2312.07533` |
+| OpenAlex | `WXXXXXXXXXX` | `W2741809807` |
+| PMCID | `PMCXXXXXXX` | `PMC8371605` |
+| S2 Paper ID | 40-char hex | (Semantic Scholar internal) |
+
+### Full-text and citations
 
 | Tool | Source | Best For |
 |------|--------|----------|
-| `pubmed_search_articles` | PubMed MCP | Biomedical, MeSH, clinical trials |
-| `search_crossref` | paper-search MCP | Cross-disciplinary, citation counts |
-| `search_arxiv` | paper-search MCP | Preprints (physics, math, CS, biology) |
+| `get_fulltext` | Europe PMC → arXiv → OpenAlex | OA full-text XML/PDF retrieval |
+| `get_citation_graph` | Semantic Scholar → Europe PMC | Citing/referenced paper lists |
 
-### Extended search
+### Extended search (external MCP servers)
 
 | Tool | Source | Best For |
 |------|--------|----------|
-| `search_google_scholar` | paper-search MCP | Broad academic search (scraped) |
-| `search_semantic_scholar` | paper-search MCP | Citation graph, field-of-study filters |
+| `search_google_scholar` | paper-search MCP | Broad academic search (scraped, T3) |
 | `search_biorxiv` | paper-search MCP | Biology preprints |
 | `search_medrxiv` | paper-search MCP | Medical preprints |
-| `search_webofscience` | paper-search MCP | Curated index, citation reports |
-| `search_scopus` | paper-search MCP | Broad scholarly database |
 
 ### PubMed utilities
 

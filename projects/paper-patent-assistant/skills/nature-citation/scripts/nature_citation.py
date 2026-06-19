@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
-Segment manuscript text, search strict Nature/CNS-family citation candidates, and export an
+Segment manuscript text, search citation candidates, and export an
 EndNote file. By default the script writes only one output file in `.enw` format.
+
+Scope modes:
+  - cns (default): strict Nature/Science/Cell family journals only
+  - nature / science / cell / flagship: single family
+  - universal: accept ALL peer-reviewed journals (CrossRef + OpenAlex + S2)
 
 Optional review artifacts can still be generated, but they are opt-in.
 """
@@ -430,6 +435,9 @@ def journal_family(journal: str) -> str | None:
 
 
 def in_scope(journal: str, scope: str) -> bool:
+    if scope == "universal":
+        # Universal mode accepts all journals with a non-empty name
+        return bool(normalize_title(journal))
     journal = normalize_title(journal)
     if not journal:
         return False
@@ -1637,7 +1645,7 @@ def write_html(
 <body>
   <header>
     <h1>Nature Citation Browser</h1>
-    <p class="subhead">Scholar-style browsing for strict Nature/CNS-family candidates. Filter by year, compare related hits, choose the references you actually want, then download them as ENW, RIS, or Zotero RDF.</p>
+    <p class="subhead">Scholar-style browsing for citation candidates. Supports universal (all journals) or strict CNS-family scope. Filter by year, compare related hits, choose the references you actually want, then download them as ENW, RIS, or Zotero RDF.</p>
   </header>
   <nav class="toolbar">
     <div class="filters">
@@ -1918,14 +1926,14 @@ def write_html(
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Segment text and export strict Nature/CNS-family citations for EndNote or Zotero.")
+    parser = argparse.ArgumentParser(description="Segment text and search citation candidates. Use --scope universal for all journals or --scope cns for Nature/CNS-family only.")
     parser.add_argument("--text", action="append", help="Manuscript text to segment and cite. Can be repeated.")
     parser.add_argument("--text-file", help="UTF-8 manuscript text file.")
     parser.add_argument("--claim", action="append", help="Single claim to treat as one segment. Can be repeated.")
     parser.add_argument("--claim-file", help="UTF-8 text file with one claim per line.")
     parser.add_argument("--doi", action="append", help="Known DOI to fetch and export. Can be repeated.")
     parser.add_argument("--doi-file", help="UTF-8 text file with one DOI per line.")
-    parser.add_argument("--scope", choices=["cns", "nature", "science", "cell", "flagship"], default="cns")
+    parser.add_argument("--scope", choices=["cns", "nature", "science", "cell", "flagship", "universal"], default="cns")
     parser.add_argument("--output-file", help="Reference output file path, typically ending in .enw, .ris, or .rdf.")
     parser.add_argument("--outdir", help="Optional directory for outputs. If omitted, uses the output file parent or current directory.")
     parser.add_argument("--format", choices=EXPORT_FORMAT_CHOICES, help="Reference export format: enw, ris, or zotero-rdf. Inferred from --output-file when omitted.")

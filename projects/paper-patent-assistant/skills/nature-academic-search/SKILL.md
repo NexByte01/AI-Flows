@@ -1,9 +1,10 @@
 ---
 name: nature-academic-search
 description: >-
-  Multi-source literature search, citation verification, MeSH search strategy,
-  citation file management (.nbib/.ris/.bib conversion), and reference management
-  (BibTeX, related articles, ID conversion) via MCP tools (PubMed, CrossRef, arXiv).
+  Multi-source literature search across 6 academic databases (PubMed, CrossRef, arXiv,
+  OpenAlex, Semantic Scholar, Europe PMC), citation verification, full-text retrieval,
+  quality assessment, MeSH search strategy, citation file management (.nbib/.ris/.bib
+  conversion), and reference management (BibTeX, related articles, ID conversion).
   Use when the user needs coordinated multi-step literature workflows beyond a
   single MCP call.
   Also trigger on general literature-search needs during academic writing even without the word
@@ -40,11 +41,12 @@ Also read every file listed under `always_load`:
 
 Map the user's need to one or more `workflow` values:
 
-- `multi-source-search` — find literature across sources.
+- `multi-source-search` — find literature across 6 sources.
 - `citation-verification` — verify citations extracted from a document.
 - `mesh-strategy` — build a MeSH/PubMed search strategy.
 - `citation-file-mgmt` — convert/manage `.nbib`/`.ris`/`.bib` files.
 - `reference-mgmt` — BibTeX, related-article discovery, ID conversion.
+- `fulltext-retrieval` — retrieve OA full text for papers via priority chain.
 
 A combined request (for example search then export) may need more than one. State the detected workflow(s) in one short line before proceeding.
 
@@ -58,7 +60,7 @@ Apply the loaded material in this order:
 
 1. Core tools and routing (`core/tools.md`, `core/routing-and-ops.md`) — which MCP tool for which need, and the T1→T2→T3 fallback chain that is the standard execution order across all workflows.
 2. The workflow fragment — its specific steps.
-3. Shared modules and scripts on demand (dedup, citation parser, search strategy, RIS/BibTeX format, format converter).
+3. Shared modules and scripts on demand (dedup, citation parser, search strategy, quality assessment, RIS/BibTeX format, format converter).
 
 Report specific tool failures and continue with remaining tools; broaden terms when there are no results; fall back to manual generation from MCP-fetched metadata if a script fails twice.
 

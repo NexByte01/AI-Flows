@@ -11,6 +11,17 @@ timeout = 15
 [arxiv]
 timeout = 30
 
+[openalex]
+api_key = ""  # Optional, via OPENALEX_API_KEY env var
+timeout = 30
+
+[semantic_scholar]
+api_key = ""  # Optional, via SEMANTIC_SCHOLAR_API_KEY env var
+timeout = 15
+
+[europepmc]
+timeout = 30
+
 [general]
 default_rows = 5
 max_rows = 50

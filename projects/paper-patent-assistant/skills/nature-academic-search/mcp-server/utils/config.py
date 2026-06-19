@@ -33,6 +33,26 @@ class Config:
         return self._config.get("arxiv", {}).get("timeout", 30)
 
     @property
+    def openalex_api_key(self) -> str:
+        return os.environ.get("OPENALEX_API_KEY") or self._config.get("openalex", {}).get("api_key", "")
+
+    @property
+    def openalex_timeout(self) -> int:
+        return self._config.get("openalex", {}).get("timeout", 30)
+
+    @property
+    def semantic_scholar_api_key(self) -> str:
+        return os.environ.get("SEMANTIC_SCHOLAR_API_KEY") or self._config.get("semantic_scholar", {}).get("api_key", "")
+
+    @property
+    def semantic_scholar_timeout(self) -> int:
+        return self._config.get("semantic_scholar", {}).get("timeout", 15)
+
+    @property
+    def europepmc_timeout(self) -> int:
+        return self._config.get("europepmc", {}).get("timeout", 30)
+
+    @property
     def default_rows(self) -> int:
         return self._config.get("general", {}).get("default_rows", 5)
 
